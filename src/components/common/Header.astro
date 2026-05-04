@@ -9,8 +9,7 @@ const { currentLocale } = Astro;
 const i18n = await getI18n(currentLocale, "design");
 
 function getTargetUrl() {
-  const lang = currentLocale === "ja" ? "en" : currentLocale;
-  return siteConfig.site + getRelativeLocaleUrl(lang, "/");
+  return siteConfig.site + getRelativeLocaleUrl(currentLocale, "/");
 }
 ---
 
