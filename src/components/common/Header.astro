@@ -1,5 +1,4 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
 import HdudHeader from "@hdud/common/components/Header.astro";
 import siteConfig from "@/site.config";
 import { getI18n } from "@/i18n/index";
@@ -9,7 +8,7 @@ const { currentLocale } = Astro;
 const i18n = await getI18n(currentLocale, "design");
 
 function getTargetUrl() {
-  return siteConfig.site + getRelativeLocaleUrl(currentLocale, "/");
+  return currentLocale === 'en' ? '/' : `/${currentLocale}/`;
 }
 ---
 
