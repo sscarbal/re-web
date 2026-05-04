@@ -15,3 +15,9 @@
 @theme inline {
   --font-handjet: "Handjet", sans-serif;
 }
+
+/* Hide development breakpoint indicator text, while keeping elements in the DOM for getScreenType to calculate offsetParent */
+#bp-default, #bp-sm, #bp-md, #bp-lg, #bp-xl, #bp-2xl {
+  opacity: 0 !important;
+  pointer-events: none;
+}
