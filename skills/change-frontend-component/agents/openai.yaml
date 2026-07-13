@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Component Change"
+  short_description: "Refactor UI components safely"
+  default_prompt: "Use $change-frontend-component to make a small, tested Astro component change."

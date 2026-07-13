@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Quality Audit"
+  short_description: "Audit SEO accessibility and speed"
+  default_prompt: "Use $audit-web-quality to audit this page for SEO, accessibility, and performance."

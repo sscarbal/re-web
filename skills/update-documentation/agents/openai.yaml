@@ -1,0 +1,4 @@
+interface:
+  display_name: "Documentation Update"
+  short_description: "Keep project docs accurate"
+  default_prompt: "Use $update-documentation to update documentation after this change."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Work Handoff"
+  short_description: "Create evidence-rich work handoffs"
+  default_prompt: "Use $handoff-agent-work to produce a concise handoff for the next agent."

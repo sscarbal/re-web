@@ -1,0 +1,4 @@
+interface:
+  display_name: "Branch Comparison"
+  short_description: "Compare branches and choose a base"
+  default_prompt: "Use $compare-branches to compare all branches and recommend an MVP base."

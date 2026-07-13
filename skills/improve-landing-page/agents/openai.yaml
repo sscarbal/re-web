@@ -1,0 +1,4 @@
+interface:
+  display_name: "Landing Page Improvement"
+  short_description: "Improve conversion-focused landing pages"
+  default_prompt: "Use $improve-landing-page to improve a Re_ page without weakening the brand message."

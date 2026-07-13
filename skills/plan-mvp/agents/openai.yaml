@@ -1,0 +1,4 @@
+interface:
+  display_name: "MVP Planning"
+  short_description: "Define evidence-based MVP scope"
+  default_prompt: "Use $plan-mvp to define the smallest launchable Re_ website."

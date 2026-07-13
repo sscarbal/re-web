@@ -1,0 +1,4 @@
+interface:
+  display_name: "MCP Design"
+  short_description: "Evaluate MCP value before building"
+  default_prompt: "Use $design-mcp to decide whether this workflow needs an MCP or a simpler tool."

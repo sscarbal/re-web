@@ -1,0 +1,4 @@
+interface:
+  display_name: "Business Message Review"
+  short_description: "Protect and clarify Re_ messaging"
+  default_prompt: "Use $review-business-message to review this copy against the Re_ brand evidence."

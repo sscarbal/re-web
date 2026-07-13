@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Audit"
+  short_description: "Audit repository state and risks"
+  default_prompt: "Use $audit-project to audit this repository before planning changes."
