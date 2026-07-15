@@ -1,9 +1,6 @@
 ---
 const { currentLocale } = Astro
-const lang = {
-  'zh': 'zh-CN',
-  'zh-hant': 'zh-HK',
-}[currentLocale] || currentLocale;
+const lang = currentLocale;
 ---
 <script
   src="https://giscus.app/client.js"

@@ -1,35 +1,61 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import HdudHeader from '@hdud/common/components/Header.astro';
-import siteConfig from '@/site.config';
-import { getI18n } from "@/i18n/index"
-import { getMenus } from '@/config/menus';
+import HdudHeader from "@hdud/common/components/Header.astro";
+import siteConfig from "@/site.config";
+import { getI18n } from "@/i18n/index";
+import { getMenus } from "@/config/menus";
 
-const { currentLocale } = Astro
-const i18n = await getI18n(currentLocale, 'design')
+const { currentLocale } = Astro;
+const i18n = await getI18n(currentLocale, "design");
 
 function getTargetUrl() {
-  const lang = currentLocale === 'ja' ? 'en' : currentLocale;
-  return siteConfig.site + getRelativeLocaleUrl(lang, '/')
+  return currentLocale === 'en' ? '/' : `/${currentLocale}/`;
 }
 ---
+
 <HdudHeader
-  menus={getMenus(i18n('menus'), currentLocale)}
+  menus={getMenus(i18n("menus"), currentLocale)}
   class="max-w-none"
   themes={siteConfig.themes}
   langs={siteConfig.langs}
 >
   <div class="flex items-center gap-2">
     <a href={getTargetUrl()} class="inline-block max-md:hidden xl:hidden">
-      <img src="/images/hdud-logo.svg" class="size-8 md:size-10 xl:size-12 h-auto" />
+      <img
+        src="/images/re-logo.png"
+        class="size-8 md:size-10 xl:size-12 h-auto dark:hidden"
+      />
+      <img
+        src="/images/re-logo-positivo.png"
+        class="size-8 md:size-10 xl:size-12 h-auto hidden dark:inline-block"
+      />
     </a>
-    <span class="max-md:hidden text-md max-md:text-xl xl:text-xl">Designer</span>
+    <div class="max-md:hidden flex flex-col justify-center">
+      <span class="text-md max-md:text-xl xl:text-xl leading-tight"
+        >Sneakers made from sneakers</span
+      >
+      <span class="text-xs xl:text-sm opacity-70"
+        >Unique, handcrafted footwear, made just when you need it.</span
+      >
+    </div>
   </div>
   <div class="flex items-center gap-2" slot="center">
     <a href={getTargetUrl()} class="md:hidden xl:block">
-      <img src="/images/hdud-logo.svg" class="size-8 md:size-10 xl:size-12 h-auto" />
+      <img
+        src="/images/re-logo.png"
+        class="size-8 md:size-10 xl:size-12 h-auto dark:hidden"
+      />
+      <img
+        src="/images/re-logo-positivo.png"
+        class="size-8 md:size-10 xl:size-12 h-auto hidden dark:inline-block"
+      />
     </a>
-    <span class="md:hidden text-md xl:text-xl">Designer</span>
+    <div class="md:hidden flex flex-col justify-center">
+      <span class="text-md xl:text-xl leading-tight"
+        >Sneakers made from sneakers</span
+      >
+      <span class="text-[0.65rem] opacity-70"
+        >Unique, handcrafted footwear, made just when you need it.</span
+      >
+    </div>
   </div>
 </HdudHeader>
-

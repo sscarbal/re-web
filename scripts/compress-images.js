@@ -71,7 +71,7 @@ function getAllImageFiles(dir) {
     const stat = fs.statSync(filePath);
     if (stat && stat.isDirectory()) {
       results = results.concat(getAllImageFiles(filePath));
-    } else if (/\.(jpe?g|png)$/i.test(filePath)) {
+    } else if (/\.(jpe?g|png|cr2|heic)$/i.test(filePath)) {
       results.push(filePath);
     } else {
       // console.error(`🟡${filePath} not jpg/png`);
@@ -99,15 +99,51 @@ async function compressImage(filePath, idx, sizeInfo) {
   const label = `  ${idx}`;
   console.time(label);
   const baseName = filePath
-    .replace(/\.(jpe?g|png)$/i, '')
+    .replace(/\.(jpe?g|png|cr2|heic)$/i, '')
     .replace(targetDirBase, saveDir);
 
   const webpPath = `${baseName}.webp`;
   const avifPath = `${baseName}.avif`;
   const blurWebpPath = `${baseName}-blur.webp`;
   const blurAvifPath = `${baseName}-blur.avif`;
-  let image = sharp(filePath);
+  let image;
+  let orientation = 1;
+  const exifr = (await import('exifr')).default;
+  try {
+    orientation = await exifr.orientation(filePath) || 1;
+  } catch (e) {}
+
+  if (/\.cr2$/i.test(filePath)) {
+    const CR2 = (await import('cr2-raw')).default;
+    const cr2 = CR2(filePath);
+    image = sharp(cr2.previewImage());
+
+    switch (orientation) {
+      case 2: image = image.flop(); break;
+      case 3: image = image.rotate(180); break;
+      case 4: image = image.flip(); break;
+      case 5: image = image.rotate(90).flop(); break;
+      case 6: image = image.rotate(90); break;
+      case 7: image = image.rotate(270).flop(); break;
+      case 8: image = image.rotate(270); break;
+    }
+  } else if (/\.heic$/i.test(filePath)) {
+    const heicConvert = (await import('heic-convert')).default;
+    const inputBuffer = fs.readFileSync(filePath);
+    const outputBuffer = await heicConvert({ buffer: inputBuffer, format: 'JPEG', quality: 1 });
+    image = sharp(outputBuffer);
+    orientation = 1;
+  } else {
+    image = sharp(filePath).rotate();
+  }
+  
   const metadata = await image.metadata();
+  
+  if (orientation >= 5 && orientation <= 8) {
+    const tmp = metadata.width;
+    metadata.width = metadata.height;
+    metadata.height = tmp;
+  }
   saveImageInfo(sizeInfo, baseName, metadata);
   if (fs.existsSync(webpPath) && fs.existsSync(avifPath)) {
     console.log(`${filename}  🟡 jump already exists file：${webpPath}`);
